@@ -16,8 +16,8 @@ while len(imageList) != 0:
     #create a 4x4 table
     table = document.add_table(rows=2, cols=2)
     #insert 4 pictures
-    for row in table.rows:
-        for cell in row.cells:
+    for col in table.columns:
+        for cell in col.cells:
             paragraph = cell.paragraphs[0]
             run = paragraph.add_run()
             print('adding picture...')
