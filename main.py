@@ -1,12 +1,18 @@
 from PIL import Image
 from docx import Document
 from docx.shared import Inches
-import glob 
+import glob
+import os
+
+def sortKeyFunc(s):
+    return int(os.path.basename(s)[:-4][7:])
 
 imageList = []
 
-for filename in glob.glob('C:/Users/user/Documents/FCA/Blueprints/img/*'):
+for filename in sorted(glob.glob('C:/Users/user/Documents/FCA/Blueprints/img/*')):
     imageList.append(filename)
+
+imageList.sort(key=sortKeyFunc)
 
 #setup doc
 document = Document()
@@ -16,8 +22,8 @@ while len(imageList) != 0:
     #create a 4x4 table
     table = document.add_table(rows=2, cols=2)
     #insert 4 pictures
-    for col in table.columns:
-        for cell in col.cells:
+    for row in table.rows:
+        for cell in row.cells:
             paragraph = cell.paragraphs[0]
             run = paragraph.add_run()
             print('adding picture...')
